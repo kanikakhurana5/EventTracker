@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Tracker</title>
+</head>
+<body>
+  <h2>Track an Event</h2>
+  <form id="eventForm">
+    <label>User ID:</label><br>
+    <input type="text" id="userId" required><br><br>
+
+    <label>Event Type:</label><br>
+    <input type="text" id="eventType" required><br><br>
+
+    <button type="submit">Track Event</button>
+  </form>
+
+  <p id="responseMessage"></p>
+
+  <hr>
+
+  <h2>Analytics</h2>
+  <button onclick="loadAnalytics()">Refresh Analytics</button>
+  <pre id="analyticsOutput"></pre>
+
+  <script>
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const userId = document.getElementById('userId').value;
+      const eventType = document.getElementById('eventType').value;
+
+      fetch('http://localhost:8080/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId, eventType })
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('responseMessage').innerText = data;
+        loadAnalytics();
+      });
+    });
+
+    function loadAnalytics() {
+      fetch('http://localhost:8080/api/analytics')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('analyticsOutput').innerText = JSON.stringify(data, null, 2);
+        });
+    }
+  </script>
+</body>
+</html>
