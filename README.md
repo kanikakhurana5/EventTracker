@@ -27,7 +27,7 @@ A Spring Boot application that tracks user events and sends email notifications.
 
 ## 🖼️ Dashboard Preview
 
-![Event Tracker Dashboard](/Screenshot%202025-07-23%20at%209.00.22%E2%80%AFPM.png)
+![Event Tracker Dashboard](./img.png)
 
 ## 📂 Project Structure
 
